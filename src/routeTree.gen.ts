@@ -9,38 +9,293 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as FlashcardsRouteImport } from './routes/flashcards'
+import { Route as ErrosRouteImport } from './routes/erros'
+import { Route as DesempenhoRouteImport } from './routes/desempenho'
+import { Route as ConteudoRouteImport } from './routes/conteudo'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FlashcardsNovoBaralhoRouteImport } from './routes/flashcards.novo-baralho'
+import { Route as ConteudoNovaDisciplinaRouteImport } from './routes/conteudo.nova-disciplina'
+import { Route as CalendarioRegistrarRouteImport } from './routes/calendario.registrar'
+import { Route as FlashcardsBaralhoIdRouteImport } from './routes/flashcards.baralho.$id'
+import { Route as ErrosDisciplinaNomeRouteImport } from './routes/erros.disciplina.$nome'
+import { Route as ConteudoDisciplinaNomeRouteImport } from './routes/conteudo.disciplina.$nome'
+import { Route as FlashcardsFlashcardIdEditarRouteImport } from './routes/flashcards.flashcard.$id.editar'
+import { Route as FlashcardsBaralhoIdNovoFlashcardRouteImport } from './routes/flashcards.baralho.$id.novo-flashcard'
+import { Route as ConteudoDisciplinaNomeNovoTopicoRouteImport } from './routes/conteudo.disciplina.$nome.novo-topico'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlashcardsRoute = FlashcardsRouteImport.update({
+  id: '/flashcards',
+  path: '/flashcards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrosRoute = ErrosRouteImport.update({
+  id: '/erros',
+  path: '/erros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesempenhoRoute = DesempenhoRouteImport.update({
+  id: '/desempenho',
+  path: '/desempenho',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConteudoRoute = ConteudoRouteImport.update({
+  id: '/conteudo',
+  path: '/conteudo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarioRoute = CalendarioRouteImport.update({
+  id: '/calendario',
+  path: '/calendario',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FlashcardsNovoBaralhoRoute = FlashcardsNovoBaralhoRouteImport.update({
+  id: '/novo-baralho',
+  path: '/novo-baralho',
+  getParentRoute: () => FlashcardsRoute,
+} as any)
+const ConteudoNovaDisciplinaRoute = ConteudoNovaDisciplinaRouteImport.update({
+  id: '/nova-disciplina',
+  path: '/nova-disciplina',
+  getParentRoute: () => ConteudoRoute,
+} as any)
+const CalendarioRegistrarRoute = CalendarioRegistrarRouteImport.update({
+  id: '/registrar',
+  path: '/registrar',
+  getParentRoute: () => CalendarioRoute,
+} as any)
+const FlashcardsBaralhoIdRoute = FlashcardsBaralhoIdRouteImport.update({
+  id: '/baralho/$id',
+  path: '/baralho/$id',
+  getParentRoute: () => FlashcardsRoute,
+} as any)
+const ErrosDisciplinaNomeRoute = ErrosDisciplinaNomeRouteImport.update({
+  id: '/disciplina/$nome',
+  path: '/disciplina/$nome',
+  getParentRoute: () => ErrosRoute,
+} as any)
+const ConteudoDisciplinaNomeRoute = ConteudoDisciplinaNomeRouteImport.update({
+  id: '/disciplina/$nome',
+  path: '/disciplina/$nome',
+  getParentRoute: () => ConteudoRoute,
+} as any)
+const FlashcardsFlashcardIdEditarRoute =
+  FlashcardsFlashcardIdEditarRouteImport.update({
+    id: '/flashcard/$id/editar',
+    path: '/flashcard/$id/editar',
+    getParentRoute: () => FlashcardsRoute,
+  } as any)
+const FlashcardsBaralhoIdNovoFlashcardRoute =
+  FlashcardsBaralhoIdNovoFlashcardRouteImport.update({
+    id: '/novo-flashcard',
+    path: '/novo-flashcard',
+    getParentRoute: () => FlashcardsBaralhoIdRoute,
+  } as any)
+const ConteudoDisciplinaNomeNovoTopicoRoute =
+  ConteudoDisciplinaNomeNovoTopicoRouteImport.update({
+    id: '/novo-topico',
+    path: '/novo-topico',
+    getParentRoute: () => ConteudoDisciplinaNomeRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/calendario': typeof CalendarioRouteWithChildren
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/conteudo': typeof ConteudoRouteWithChildren
+  '/desempenho': typeof DesempenhoRoute
+  '/erros': typeof ErrosRouteWithChildren
+  '/flashcards': typeof FlashcardsRouteWithChildren
+  '/login': typeof LoginRoute
+  '/calendario/registrar': typeof CalendarioRegistrarRoute
+  '/conteudo/nova-disciplina': typeof ConteudoNovaDisciplinaRoute
+  '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRouteWithChildren
+  '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/conteudo/disciplina/$nome/novo-topico': typeof ConteudoDisciplinaNomeNovoTopicoRoute
+  '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
+  '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calendario': typeof CalendarioRouteWithChildren
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/conteudo': typeof ConteudoRouteWithChildren
+  '/desempenho': typeof DesempenhoRoute
+  '/erros': typeof ErrosRouteWithChildren
+  '/flashcards': typeof FlashcardsRouteWithChildren
+  '/login': typeof LoginRoute
+  '/calendario/registrar': typeof CalendarioRegistrarRoute
+  '/conteudo/nova-disciplina': typeof ConteudoNovaDisciplinaRoute
+  '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRouteWithChildren
+  '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/conteudo/disciplina/$nome/novo-topico': typeof ConteudoDisciplinaNomeNovoTopicoRoute
+  '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
+  '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/calendario': typeof CalendarioRouteWithChildren
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/conteudo': typeof ConteudoRouteWithChildren
+  '/desempenho': typeof DesempenhoRoute
+  '/erros': typeof ErrosRouteWithChildren
+  '/flashcards': typeof FlashcardsRouteWithChildren
+  '/login': typeof LoginRoute
+  '/calendario/registrar': typeof CalendarioRegistrarRoute
+  '/conteudo/nova-disciplina': typeof ConteudoNovaDisciplinaRoute
+  '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRouteWithChildren
+  '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/conteudo/disciplina/$nome/novo-topico': typeof ConteudoDisciplinaNomeNovoTopicoRoute
+  '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
+  '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/calendario'
+    | '/configuracoes'
+    | '/conteudo'
+    | '/desempenho'
+    | '/erros'
+    | '/flashcards'
+    | '/login'
+    | '/calendario/registrar'
+    | '/conteudo/nova-disciplina'
+    | '/flashcards/novo-baralho'
+    | '/conteudo/disciplina/$nome'
+    | '/erros/disciplina/$nome'
+    | '/flashcards/baralho/$id'
+    | '/conteudo/disciplina/$nome/novo-topico'
+    | '/flashcards/baralho/$id/novo-flashcard'
+    | '/flashcards/flashcard/$id/editar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/calendario'
+    | '/configuracoes'
+    | '/conteudo'
+    | '/desempenho'
+    | '/erros'
+    | '/flashcards'
+    | '/login'
+    | '/calendario/registrar'
+    | '/conteudo/nova-disciplina'
+    | '/flashcards/novo-baralho'
+    | '/conteudo/disciplina/$nome'
+    | '/erros/disciplina/$nome'
+    | '/flashcards/baralho/$id'
+    | '/conteudo/disciplina/$nome/novo-topico'
+    | '/flashcards/baralho/$id/novo-flashcard'
+    | '/flashcards/flashcard/$id/editar'
+  id:
+    | '__root__'
+    | '/'
+    | '/calendario'
+    | '/configuracoes'
+    | '/conteudo'
+    | '/desempenho'
+    | '/erros'
+    | '/flashcards'
+    | '/login'
+    | '/calendario/registrar'
+    | '/conteudo/nova-disciplina'
+    | '/flashcards/novo-baralho'
+    | '/conteudo/disciplina/$nome'
+    | '/erros/disciplina/$nome'
+    | '/flashcards/baralho/$id'
+    | '/conteudo/disciplina/$nome/novo-topico'
+    | '/flashcards/baralho/$id/novo-flashcard'
+    | '/flashcards/flashcard/$id/editar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CalendarioRoute: typeof CalendarioRouteWithChildren
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  ConteudoRoute: typeof ConteudoRouteWithChildren
+  DesempenhoRoute: typeof DesempenhoRoute
+  ErrosRoute: typeof ErrosRouteWithChildren
+  FlashcardsRoute: typeof FlashcardsRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flashcards': {
+      id: '/flashcards'
+      path: '/flashcards'
+      fullPath: '/flashcards'
+      preLoaderRoute: typeof FlashcardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/erros': {
+      id: '/erros'
+      path: '/erros'
+      fullPath: '/erros'
+      preLoaderRoute: typeof ErrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desempenho': {
+      id: '/desempenho'
+      path: '/desempenho'
+      fullPath: '/desempenho'
+      preLoaderRoute: typeof DesempenhoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conteudo': {
+      id: '/conteudo'
+      path: '/conteudo'
+      fullPath: '/conteudo'
+      preLoaderRoute: typeof ConteudoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendario': {
+      id: '/calendario'
+      path: '/calendario'
+      fullPath: '/calendario'
+      preLoaderRoute: typeof CalendarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +303,160 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/flashcards/novo-baralho': {
+      id: '/flashcards/novo-baralho'
+      path: '/novo-baralho'
+      fullPath: '/flashcards/novo-baralho'
+      preLoaderRoute: typeof FlashcardsNovoBaralhoRouteImport
+      parentRoute: typeof FlashcardsRoute
+    }
+    '/conteudo/nova-disciplina': {
+      id: '/conteudo/nova-disciplina'
+      path: '/nova-disciplina'
+      fullPath: '/conteudo/nova-disciplina'
+      preLoaderRoute: typeof ConteudoNovaDisciplinaRouteImport
+      parentRoute: typeof ConteudoRoute
+    }
+    '/calendario/registrar': {
+      id: '/calendario/registrar'
+      path: '/registrar'
+      fullPath: '/calendario/registrar'
+      preLoaderRoute: typeof CalendarioRegistrarRouteImport
+      parentRoute: typeof CalendarioRoute
+    }
+    '/flashcards/baralho/$id': {
+      id: '/flashcards/baralho/$id'
+      path: '/baralho/$id'
+      fullPath: '/flashcards/baralho/$id'
+      preLoaderRoute: typeof FlashcardsBaralhoIdRouteImport
+      parentRoute: typeof FlashcardsRoute
+    }
+    '/erros/disciplina/$nome': {
+      id: '/erros/disciplina/$nome'
+      path: '/disciplina/$nome'
+      fullPath: '/erros/disciplina/$nome'
+      preLoaderRoute: typeof ErrosDisciplinaNomeRouteImport
+      parentRoute: typeof ErrosRoute
+    }
+    '/conteudo/disciplina/$nome': {
+      id: '/conteudo/disciplina/$nome'
+      path: '/disciplina/$nome'
+      fullPath: '/conteudo/disciplina/$nome'
+      preLoaderRoute: typeof ConteudoDisciplinaNomeRouteImport
+      parentRoute: typeof ConteudoRoute
+    }
+    '/flashcards/flashcard/$id/editar': {
+      id: '/flashcards/flashcard/$id/editar'
+      path: '/flashcard/$id/editar'
+      fullPath: '/flashcards/flashcard/$id/editar'
+      preLoaderRoute: typeof FlashcardsFlashcardIdEditarRouteImport
+      parentRoute: typeof FlashcardsRoute
+    }
+    '/flashcards/baralho/$id/novo-flashcard': {
+      id: '/flashcards/baralho/$id/novo-flashcard'
+      path: '/novo-flashcard'
+      fullPath: '/flashcards/baralho/$id/novo-flashcard'
+      preLoaderRoute: typeof FlashcardsBaralhoIdNovoFlashcardRouteImport
+      parentRoute: typeof FlashcardsBaralhoIdRoute
+    }
+    '/conteudo/disciplina/$nome/novo-topico': {
+      id: '/conteudo/disciplina/$nome/novo-topico'
+      path: '/novo-topico'
+      fullPath: '/conteudo/disciplina/$nome/novo-topico'
+      preLoaderRoute: typeof ConteudoDisciplinaNomeNovoTopicoRouteImport
+      parentRoute: typeof ConteudoDisciplinaNomeRoute
+    }
   }
 }
 
+interface CalendarioRouteChildren {
+  CalendarioRegistrarRoute: typeof CalendarioRegistrarRoute
+}
+
+const CalendarioRouteChildren: CalendarioRouteChildren = {
+  CalendarioRegistrarRoute: CalendarioRegistrarRoute,
+}
+
+const CalendarioRouteWithChildren = CalendarioRoute._addFileChildren(
+  CalendarioRouteChildren,
+)
+
+interface ConteudoDisciplinaNomeRouteChildren {
+  ConteudoDisciplinaNomeNovoTopicoRoute: typeof ConteudoDisciplinaNomeNovoTopicoRoute
+}
+
+const ConteudoDisciplinaNomeRouteChildren: ConteudoDisciplinaNomeRouteChildren =
+  {
+    ConteudoDisciplinaNomeNovoTopicoRoute:
+      ConteudoDisciplinaNomeNovoTopicoRoute,
+  }
+
+const ConteudoDisciplinaNomeRouteWithChildren =
+  ConteudoDisciplinaNomeRoute._addFileChildren(
+    ConteudoDisciplinaNomeRouteChildren,
+  )
+
+interface ConteudoRouteChildren {
+  ConteudoNovaDisciplinaRoute: typeof ConteudoNovaDisciplinaRoute
+  ConteudoDisciplinaNomeRoute: typeof ConteudoDisciplinaNomeRouteWithChildren
+}
+
+const ConteudoRouteChildren: ConteudoRouteChildren = {
+  ConteudoNovaDisciplinaRoute: ConteudoNovaDisciplinaRoute,
+  ConteudoDisciplinaNomeRoute: ConteudoDisciplinaNomeRouteWithChildren,
+}
+
+const ConteudoRouteWithChildren = ConteudoRoute._addFileChildren(
+  ConteudoRouteChildren,
+)
+
+interface ErrosRouteChildren {
+  ErrosDisciplinaNomeRoute: typeof ErrosDisciplinaNomeRoute
+}
+
+const ErrosRouteChildren: ErrosRouteChildren = {
+  ErrosDisciplinaNomeRoute: ErrosDisciplinaNomeRoute,
+}
+
+const ErrosRouteWithChildren = ErrosRoute._addFileChildren(ErrosRouteChildren)
+
+interface FlashcardsBaralhoIdRouteChildren {
+  FlashcardsBaralhoIdNovoFlashcardRoute: typeof FlashcardsBaralhoIdNovoFlashcardRoute
+}
+
+const FlashcardsBaralhoIdRouteChildren: FlashcardsBaralhoIdRouteChildren = {
+  FlashcardsBaralhoIdNovoFlashcardRoute: FlashcardsBaralhoIdNovoFlashcardRoute,
+}
+
+const FlashcardsBaralhoIdRouteWithChildren =
+  FlashcardsBaralhoIdRoute._addFileChildren(FlashcardsBaralhoIdRouteChildren)
+
+interface FlashcardsRouteChildren {
+  FlashcardsNovoBaralhoRoute: typeof FlashcardsNovoBaralhoRoute
+  FlashcardsBaralhoIdRoute: typeof FlashcardsBaralhoIdRouteWithChildren
+  FlashcardsFlashcardIdEditarRoute: typeof FlashcardsFlashcardIdEditarRoute
+}
+
+const FlashcardsRouteChildren: FlashcardsRouteChildren = {
+  FlashcardsNovoBaralhoRoute: FlashcardsNovoBaralhoRoute,
+  FlashcardsBaralhoIdRoute: FlashcardsBaralhoIdRouteWithChildren,
+  FlashcardsFlashcardIdEditarRoute: FlashcardsFlashcardIdEditarRoute,
+}
+
+const FlashcardsRouteWithChildren = FlashcardsRoute._addFileChildren(
+  FlashcardsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CalendarioRoute: CalendarioRouteWithChildren,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  ConteudoRoute: ConteudoRouteWithChildren,
+  DesempenhoRoute: DesempenhoRoute,
+  ErrosRoute: ErrosRouteWithChildren,
+  FlashcardsRoute: FlashcardsRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
