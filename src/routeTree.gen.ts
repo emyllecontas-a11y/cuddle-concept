@@ -25,6 +25,7 @@ import { Route as ErrosDisciplinaNomeRouteImport } from './routes/erros.discipli
 import { Route as ConteudoDisciplinaNomeRouteImport } from './routes/conteudo.disciplina.$nome'
 import { Route as FlashcardsFlashcardIdEditarRouteImport } from './routes/flashcards.flashcard.$id.editar'
 import { Route as FlashcardsBaralhoIdNovoFlashcardRouteImport } from './routes/flashcards.baralho.$id.novo-flashcard'
+import { Route as ConteudoDisciplinaNomeNovoTopicoRouteImport } from './routes/conteudo.disciplina.$nome.novo-topico'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -108,6 +109,12 @@ const FlashcardsBaralhoIdNovoFlashcardRoute =
     path: '/novo-flashcard',
     getParentRoute: () => FlashcardsBaralhoIdRoute,
   } as any)
+const ConteudoDisciplinaNomeNovoTopicoRoute =
+  ConteudoDisciplinaNomeNovoTopicoRouteImport.update({
+    id: '/novo-topico',
+    path: '/novo-topico',
+    getParentRoute: () => ConteudoDisciplinaNomeRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -121,9 +128,10 @@ export interface FileRoutesByFullPath {
   '/calendario/registrar': typeof CalendarioRegistrarRoute
   '/conteudo/nova-disciplina': typeof ConteudoNovaDisciplinaRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
-  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRoute
+  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRouteWithChildren
   '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
   '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/conteudo/disciplina/$nome/novo-topico': typeof ConteudoDisciplinaNomeNovoTopicoRoute
   '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
   '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
 }
@@ -139,9 +147,10 @@ export interface FileRoutesByTo {
   '/calendario/registrar': typeof CalendarioRegistrarRoute
   '/conteudo/nova-disciplina': typeof ConteudoNovaDisciplinaRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
-  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRoute
+  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRouteWithChildren
   '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
   '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/conteudo/disciplina/$nome/novo-topico': typeof ConteudoDisciplinaNomeNovoTopicoRoute
   '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
   '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
 }
@@ -158,9 +167,10 @@ export interface FileRoutesById {
   '/calendario/registrar': typeof CalendarioRegistrarRoute
   '/conteudo/nova-disciplina': typeof ConteudoNovaDisciplinaRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
-  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRoute
+  '/conteudo/disciplina/$nome': typeof ConteudoDisciplinaNomeRouteWithChildren
   '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
   '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/conteudo/disciplina/$nome/novo-topico': typeof ConteudoDisciplinaNomeNovoTopicoRoute
   '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
   '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
 }
@@ -181,6 +191,7 @@ export interface FileRouteTypes {
     | '/conteudo/disciplina/$nome'
     | '/erros/disciplina/$nome'
     | '/flashcards/baralho/$id'
+    | '/conteudo/disciplina/$nome/novo-topico'
     | '/flashcards/baralho/$id/novo-flashcard'
     | '/flashcards/flashcard/$id/editar'
   fileRoutesByTo: FileRoutesByTo
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/conteudo/disciplina/$nome'
     | '/erros/disciplina/$nome'
     | '/flashcards/baralho/$id'
+    | '/conteudo/disciplina/$nome/novo-topico'
     | '/flashcards/baralho/$id/novo-flashcard'
     | '/flashcards/flashcard/$id/editar'
   id:
@@ -217,6 +229,7 @@ export interface FileRouteTypes {
     | '/conteudo/disciplina/$nome'
     | '/erros/disciplina/$nome'
     | '/flashcards/baralho/$id'
+    | '/conteudo/disciplina/$nome/novo-topico'
     | '/flashcards/baralho/$id/novo-flashcard'
     | '/flashcards/flashcard/$id/editar'
   fileRoutesById: FileRoutesById
@@ -346,6 +359,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlashcardsBaralhoIdNovoFlashcardRouteImport
       parentRoute: typeof FlashcardsBaralhoIdRoute
     }
+    '/conteudo/disciplina/$nome/novo-topico': {
+      id: '/conteudo/disciplina/$nome/novo-topico'
+      path: '/novo-topico'
+      fullPath: '/conteudo/disciplina/$nome/novo-topico'
+      preLoaderRoute: typeof ConteudoDisciplinaNomeNovoTopicoRouteImport
+      parentRoute: typeof ConteudoDisciplinaNomeRoute
+    }
   }
 }
 
@@ -361,14 +381,29 @@ const CalendarioRouteWithChildren = CalendarioRoute._addFileChildren(
   CalendarioRouteChildren,
 )
 
+interface ConteudoDisciplinaNomeRouteChildren {
+  ConteudoDisciplinaNomeNovoTopicoRoute: typeof ConteudoDisciplinaNomeNovoTopicoRoute
+}
+
+const ConteudoDisciplinaNomeRouteChildren: ConteudoDisciplinaNomeRouteChildren =
+  {
+    ConteudoDisciplinaNomeNovoTopicoRoute:
+      ConteudoDisciplinaNomeNovoTopicoRoute,
+  }
+
+const ConteudoDisciplinaNomeRouteWithChildren =
+  ConteudoDisciplinaNomeRoute._addFileChildren(
+    ConteudoDisciplinaNomeRouteChildren,
+  )
+
 interface ConteudoRouteChildren {
   ConteudoNovaDisciplinaRoute: typeof ConteudoNovaDisciplinaRoute
-  ConteudoDisciplinaNomeRoute: typeof ConteudoDisciplinaNomeRoute
+  ConteudoDisciplinaNomeRoute: typeof ConteudoDisciplinaNomeRouteWithChildren
 }
 
 const ConteudoRouteChildren: ConteudoRouteChildren = {
   ConteudoNovaDisciplinaRoute: ConteudoNovaDisciplinaRoute,
-  ConteudoDisciplinaNomeRoute: ConteudoDisciplinaNomeRoute,
+  ConteudoDisciplinaNomeRoute: ConteudoDisciplinaNomeRouteWithChildren,
 }
 
 const ConteudoRouteWithChildren = ConteudoRoute._addFileChildren(
