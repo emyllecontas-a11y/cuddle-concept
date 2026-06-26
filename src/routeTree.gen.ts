@@ -17,6 +17,7 @@ import { Route as ConteudoRouteImport } from './routes/conteudo'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FlashcardsNovoBaralhoRouteImport } from './routes/flashcards.novo-baralho'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -58,6 +59,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FlashcardsNovoBaralhoRoute = FlashcardsNovoBaralhoRouteImport.update({
+  id: '/novo-baralho',
+  path: '/novo-baralho',
+  getParentRoute: () => FlashcardsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -66,8 +72,9 @@ export interface FileRoutesByFullPath {
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
   '/erros': typeof ErrosRoute
-  '/flashcards': typeof FlashcardsRoute
+  '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
+  '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -76,8 +83,9 @@ export interface FileRoutesByTo {
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
   '/erros': typeof ErrosRoute
-  '/flashcards': typeof FlashcardsRoute
+  '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
+  '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -87,8 +95,9 @@ export interface FileRoutesById {
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
   '/erros': typeof ErrosRoute
-  '/flashcards': typeof FlashcardsRoute
+  '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
+  '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/erros'
     | '/flashcards'
     | '/login'
+    | '/flashcards/novo-baralho'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/erros'
     | '/flashcards'
     | '/login'
+    | '/flashcards/novo-baralho'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/erros'
     | '/flashcards'
     | '/login'
+    | '/flashcards/novo-baralho'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -130,7 +142,7 @@ export interface RootRouteChildren {
   ConteudoRoute: typeof ConteudoRoute
   DesempenhoRoute: typeof DesempenhoRoute
   ErrosRoute: typeof ErrosRoute
-  FlashcardsRoute: typeof FlashcardsRoute
+  FlashcardsRoute: typeof FlashcardsRouteWithChildren
   LoginRoute: typeof LoginRoute
 }
 
@@ -192,8 +204,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/flashcards/novo-baralho': {
+      id: '/flashcards/novo-baralho'
+      path: '/novo-baralho'
+      fullPath: '/flashcards/novo-baralho'
+      preLoaderRoute: typeof FlashcardsNovoBaralhoRouteImport
+      parentRoute: typeof FlashcardsRoute
+    }
   }
 }
+
+interface FlashcardsRouteChildren {
+  FlashcardsNovoBaralhoRoute: typeof FlashcardsNovoBaralhoRoute
+}
+
+const FlashcardsRouteChildren: FlashcardsRouteChildren = {
+  FlashcardsNovoBaralhoRoute: FlashcardsNovoBaralhoRoute,
+}
+
+const FlashcardsRouteWithChildren = FlashcardsRoute._addFileChildren(
+  FlashcardsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -202,7 +233,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConteudoRoute: ConteudoRoute,
   DesempenhoRoute: DesempenhoRoute,
   ErrosRoute: ErrosRoute,
-  FlashcardsRoute: FlashcardsRoute,
+  FlashcardsRoute: FlashcardsRouteWithChildren,
   LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
