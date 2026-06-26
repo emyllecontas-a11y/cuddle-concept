@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
 import { DISCIPLINAS } from "@/lib/mock";
 import { Plus, Search, ChevronRight, FileText, Upload } from "lucide-react";
@@ -42,15 +42,15 @@ function ConteudoPage() {
             <Search className="h-3.5 w-3.5 text-foreground/40" />
             <input placeholder="Buscar disciplina…" className="w-44 bg-transparent text-xs outline-none placeholder:text-foreground/35" />
           </div>
-          <button className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
+          <Link to="/conteudo/nova-disciplina" className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
             <Plus className="h-3.5 w-3.5" /> Nova disciplina
-          </button>
+          </Link>
         </div>
       </div>
 
       <div className="grid gap-3">
         {lista.map((d) => (
-          <article key={d.nome} className="rf-card rf-card-hover group flex items-center gap-4 p-4 sm:p-5">
+          <Link key={d.nome} to="/conteudo/disciplina/$nome" params={{ nome: d.nome.toLowerCase().replace(/\s+/g, "-") }} className="rf-card rf-card-hover group flex items-center gap-4 p-4 sm:p-5">
             <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary/10 font-display text-base font-semibold text-primary">
               {d.nome.split(" ").map((w) => w[0]).slice(0, 2).join("")}
             </div>
@@ -73,7 +73,7 @@ function ConteudoPage() {
               </div>
             </div>
             <ChevronRight className="h-4 w-4 shrink-0 text-foreground/30 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
-          </article>
+          </Link>
         ))}
       </div>
 

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { DECKS, FLASHCARD_DEMO } from "@/lib/mock";
@@ -70,9 +70,14 @@ function FlashcardsPage() {
 
   return (
     <AppShell breadcrumb="Flashcards" title="Decks">
-      <p className="-mt-4 mb-6 max-w-xl text-sm text-foreground/55">
-        Algoritmo de repetição espaçada FSRS. Cards são apresentados no momento ideal para fixar o conteúdo.
-      </p>
+      <div className="-mt-4 mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <p className="max-w-xl text-sm text-foreground/55">
+          Algoritmo de repetição espaçada FSRS. Cards são apresentados no momento ideal para fixar o conteúdo.
+        </p>
+        <Link to="/flashcards/novo-baralho" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
+          <Plus className="h-3.5 w-3.5" /> Novo baralho
+        </Link>
+      </div>
 
       <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Mini icon={<Layers className="h-4 w-4" />} l="Decks" v={DECKS.length} />
@@ -86,10 +91,10 @@ function FlashcardsPage() {
           <article key={d.id} className="rf-card rf-card-hover p-5">
             <header className="mb-3 flex items-start justify-between">
               <div>
-                <h3 className="font-display text-base font-semibold">{d.nome}</h3>
+                <Link to="/flashcards/baralho/$id" params={{ id: String(d.id) }} className="font-display text-base font-semibold hover:text-primary">{d.nome}</Link>
                 <p className="mt-0.5 text-xs text-foreground/45">{d.desc}</p>
               </div>
-              <button className="grid h-7 w-7 place-items-center rounded-md text-foreground/40 hover:bg-white/5 hover:text-foreground" aria-label="Mais">⋯</button>
+              <Link to="/flashcards/baralho/$id" params={{ id: String(d.id) }} className="grid h-7 w-7 place-items-center rounded-md text-foreground/40 hover:bg-white/5 hover:text-foreground" aria-label="Gerenciar">⋯</Link>
             </header>
 
             <div className="grid grid-cols-3 gap-2 rounded-lg bg-background/40 p-3 text-center">
@@ -106,9 +111,9 @@ function FlashcardsPage() {
               >
                 {d.due > 0 ? `Estudar ${d.due} cards` : "Nada para hoje"}
               </button>
-              <button className="rounded-lg border border-border bg-surface-2 px-3 py-2 text-xs font-medium text-foreground/70 hover:bg-white/5">
+              <Link to="/flashcards/baralho/$id/novo-flashcard" params={{ id: String(d.id) }} className="rounded-lg border border-border bg-surface-2 px-3 py-2 text-xs font-medium text-foreground/70 hover:bg-white/5" aria-label="Novo flashcard">
                 <Plus className="h-3.5 w-3.5" />
-              </button>
+              </Link>
             </div>
           </article>
         ))}

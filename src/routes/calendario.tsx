@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
 import { ESTUDO_MES, REVISOES_HOJE } from "@/lib/mock";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
@@ -31,9 +31,9 @@ function CalendarioPage() {
                 <button className="grid h-7 w-7 place-items-center rounded-md border border-border hover:bg-white/5"><ChevronRight className="h-3.5 w-3.5" /></button>
               </div>
             </div>
-            <button className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
+            <Link to="/calendario/registrar" className="inline-flex items-center gap-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
               <Plus className="h-3.5 w-3.5" /> Registrar estudo
-            </button>
+            </Link>
           </header>
 
           <div className="grid grid-cols-7 gap-px overflow-hidden rounded-lg border border-border bg-border">
