@@ -40,7 +40,7 @@ function ErrosPage() {
           const pct = Math.round((g.erros / g.total) * 100);
           const critico = g.erros >= 10;
           return (
-            <article key={g.nome} className="rf-card rf-card-hover p-5">
+            <Link key={g.nome} to="/erros/disciplina/$nome" params={{ nome: g.nome.toLowerCase().replace(/\s+/g, "-") }} className="rf-card rf-card-hover p-5 block">
               <div className="mb-3 flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className="grid h-10 w-10 place-items-center rounded-lg bg-background/60 text-lg">{g.icon}</div>
@@ -62,7 +62,7 @@ function ErrosPage() {
               <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/5">
                 <div className={["h-full rounded-full", critico ? "bg-accent" : "bg-primary/70"].join(" ")} style={{ width: `${Math.min(pct * 2, 100)}%` }} />
               </div>
-            </article>
+            </Link>
           );
         })}
       </div>
