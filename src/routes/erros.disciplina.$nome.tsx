@@ -69,9 +69,9 @@ function ErrosDisciplinaPage() {
               <p className="mt-1.5 text-sm font-medium leading-snug text-foreground">{e.q}</p>
               <p className="mt-1 text-xs text-foreground/55"><span className="text-foreground/40">Resposta:</span> {e.correta}</p>
             </div>
-            <button className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-border bg-surface-2 text-foreground/60 transition-colors hover:border-primary/50 hover:text-primary" aria-label="Editar">
+            <Link to="/erros/erro/$id/editar" params={{ id: String(e.id) }} className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-border bg-surface-2 text-foreground/60 transition-colors hover:border-primary/50 hover:text-primary" aria-label="Editar">
               <Pencil className="h-3.5 w-3.5" />
-            </button>
+            </Link>
           </article>
         ))}
       </div>
