@@ -50,7 +50,12 @@ function DisciplinaPage() {
       <h2 className="mb-3 font-display text-base font-semibold">Tópicos</h2>
       <div className="grid gap-3">
         {TOPICOS.map((t) => (
-          <article key={t.id} className="rf-card rf-card-hover group flex items-center gap-4 p-5">
+          <Link
+            key={t.id}
+            to="/conteudo/disciplina/$nome/topico/$topicoId"
+            params={{ nome, topicoId: t.id }}
+            className="rf-card rf-card-hover group flex items-center gap-4 p-5"
+          >
             <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-background/60 font-display text-sm font-semibold text-foreground/70 tabular-nums">
               {t.id.replace("t", "")}
             </div>
@@ -70,7 +75,7 @@ function DisciplinaPage() {
               </div>
             </div>
             <ChevronRight className="h-4 w-4 shrink-0 text-foreground/30 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
-          </article>
+          </Link>
         ))}
       </div>
     </AppShell>
