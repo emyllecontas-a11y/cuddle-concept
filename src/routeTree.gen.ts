@@ -19,6 +19,7 @@ import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FlashcardsNovoBaralhoRouteImport } from './routes/flashcards.novo-baralho'
 import { Route as FlashcardsBaralhoIdRouteImport } from './routes/flashcards.baralho.$id'
+import { Route as FlashcardsBaralhoIdNovoFlashcardRouteImport } from './routes/flashcards.baralho.$id.novo-flashcard'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -70,6 +71,12 @@ const FlashcardsBaralhoIdRoute = FlashcardsBaralhoIdRouteImport.update({
   path: '/baralho/$id',
   getParentRoute: () => FlashcardsRoute,
 } as any)
+const FlashcardsBaralhoIdNovoFlashcardRoute =
+  FlashcardsBaralhoIdNovoFlashcardRouteImport.update({
+    id: '/novo-flashcard',
+    path: '/novo-flashcard',
+    getParentRoute: () => FlashcardsBaralhoIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,7 +88,8 @@ export interface FileRoutesByFullPath {
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
-  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -93,7 +101,8 @@ export interface FileRoutesByTo {
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
-  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -106,7 +115,8 @@ export interface FileRoutesById {
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
-  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
+  '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/flashcards/novo-baralho'
     | '/flashcards/baralho/$id'
+    | '/flashcards/baralho/$id/novo-flashcard'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/flashcards/novo-baralho'
     | '/flashcards/baralho/$id'
+    | '/flashcards/baralho/$id/novo-flashcard'
   id:
     | '__root__'
     | '/'
@@ -145,6 +157,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/flashcards/novo-baralho'
     | '/flashcards/baralho/$id'
+    | '/flashcards/baralho/$id/novo-flashcard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -230,17 +243,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlashcardsBaralhoIdRouteImport
       parentRoute: typeof FlashcardsRoute
     }
+    '/flashcards/baralho/$id/novo-flashcard': {
+      id: '/flashcards/baralho/$id/novo-flashcard'
+      path: '/novo-flashcard'
+      fullPath: '/flashcards/baralho/$id/novo-flashcard'
+      preLoaderRoute: typeof FlashcardsBaralhoIdNovoFlashcardRouteImport
+      parentRoute: typeof FlashcardsBaralhoIdRoute
+    }
   }
 }
 
+interface FlashcardsBaralhoIdRouteChildren {
+  FlashcardsBaralhoIdNovoFlashcardRoute: typeof FlashcardsBaralhoIdNovoFlashcardRoute
+}
+
+const FlashcardsBaralhoIdRouteChildren: FlashcardsBaralhoIdRouteChildren = {
+  FlashcardsBaralhoIdNovoFlashcardRoute: FlashcardsBaralhoIdNovoFlashcardRoute,
+}
+
+const FlashcardsBaralhoIdRouteWithChildren =
+  FlashcardsBaralhoIdRoute._addFileChildren(FlashcardsBaralhoIdRouteChildren)
+
 interface FlashcardsRouteChildren {
   FlashcardsNovoBaralhoRoute: typeof FlashcardsNovoBaralhoRoute
-  FlashcardsBaralhoIdRoute: typeof FlashcardsBaralhoIdRoute
+  FlashcardsBaralhoIdRoute: typeof FlashcardsBaralhoIdRouteWithChildren
 }
 
 const FlashcardsRouteChildren: FlashcardsRouteChildren = {
   FlashcardsNovoBaralhoRoute: FlashcardsNovoBaralhoRoute,
-  FlashcardsBaralhoIdRoute: FlashcardsBaralhoIdRoute,
+  FlashcardsBaralhoIdRoute: FlashcardsBaralhoIdRouteWithChildren,
 }
 
 const FlashcardsRouteWithChildren = FlashcardsRoute._addFileChildren(
