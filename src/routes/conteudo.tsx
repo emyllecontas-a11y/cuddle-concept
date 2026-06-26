@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
 import { DISCIPLINAS } from "@/lib/mock";
 import { Plus, Search, ChevronRight, FileText, Upload } from "lucide-react";
