@@ -19,6 +19,7 @@ import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FlashcardsNovoBaralhoRouteImport } from './routes/flashcards.novo-baralho'
 import { Route as FlashcardsBaralhoIdRouteImport } from './routes/flashcards.baralho.$id'
+import { Route as ErrosDisciplinaNomeRouteImport } from './routes/erros.disciplina.$nome'
 import { Route as FlashcardsFlashcardIdEditarRouteImport } from './routes/flashcards.flashcard.$id.editar'
 import { Route as FlashcardsBaralhoIdNovoFlashcardRouteImport } from './routes/flashcards.baralho.$id.novo-flashcard'
 
@@ -72,6 +73,11 @@ const FlashcardsBaralhoIdRoute = FlashcardsBaralhoIdRouteImport.update({
   path: '/baralho/$id',
   getParentRoute: () => FlashcardsRoute,
 } as any)
+const ErrosDisciplinaNomeRoute = ErrosDisciplinaNomeRouteImport.update({
+  id: '/disciplina/$nome',
+  path: '/disciplina/$nome',
+  getParentRoute: () => ErrosRoute,
+} as any)
 const FlashcardsFlashcardIdEditarRoute =
   FlashcardsFlashcardIdEditarRouteImport.update({
     id: '/flashcard/$id/editar',
@@ -91,10 +97,11 @@ export interface FileRoutesByFullPath {
   '/configuracoes': typeof ConfiguracoesRoute
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
-  '/erros': typeof ErrosRoute
+  '/erros': typeof ErrosRouteWithChildren
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
   '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
   '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
   '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
@@ -105,10 +112,11 @@ export interface FileRoutesByTo {
   '/configuracoes': typeof ConfiguracoesRoute
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
-  '/erros': typeof ErrosRoute
+  '/erros': typeof ErrosRouteWithChildren
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
   '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
   '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
   '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
@@ -120,10 +128,11 @@ export interface FileRoutesById {
   '/configuracoes': typeof ConfiguracoesRoute
   '/conteudo': typeof ConteudoRoute
   '/desempenho': typeof DesempenhoRoute
-  '/erros': typeof ErrosRoute
+  '/erros': typeof ErrosRouteWithChildren
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/erros/disciplina/$nome': typeof ErrosDisciplinaNomeRoute
   '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRouteWithChildren
   '/flashcards/baralho/$id/novo-flashcard': typeof FlashcardsBaralhoIdNovoFlashcardRoute
   '/flashcards/flashcard/$id/editar': typeof FlashcardsFlashcardIdEditarRoute
@@ -140,6 +149,7 @@ export interface FileRouteTypes {
     | '/flashcards'
     | '/login'
     | '/flashcards/novo-baralho'
+    | '/erros/disciplina/$nome'
     | '/flashcards/baralho/$id'
     | '/flashcards/baralho/$id/novo-flashcard'
     | '/flashcards/flashcard/$id/editar'
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
     | '/flashcards'
     | '/login'
     | '/flashcards/novo-baralho'
+    | '/erros/disciplina/$nome'
     | '/flashcards/baralho/$id'
     | '/flashcards/baralho/$id/novo-flashcard'
     | '/flashcards/flashcard/$id/editar'
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/flashcards'
     | '/login'
     | '/flashcards/novo-baralho'
+    | '/erros/disciplina/$nome'
     | '/flashcards/baralho/$id'
     | '/flashcards/baralho/$id/novo-flashcard'
     | '/flashcards/flashcard/$id/editar'
@@ -179,7 +191,7 @@ export interface RootRouteChildren {
   ConfiguracoesRoute: typeof ConfiguracoesRoute
   ConteudoRoute: typeof ConteudoRoute
   DesempenhoRoute: typeof DesempenhoRoute
-  ErrosRoute: typeof ErrosRoute
+  ErrosRoute: typeof ErrosRouteWithChildren
   FlashcardsRoute: typeof FlashcardsRouteWithChildren
   LoginRoute: typeof LoginRoute
 }
@@ -256,6 +268,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlashcardsBaralhoIdRouteImport
       parentRoute: typeof FlashcardsRoute
     }
+    '/erros/disciplina/$nome': {
+      id: '/erros/disciplina/$nome'
+      path: '/disciplina/$nome'
+      fullPath: '/erros/disciplina/$nome'
+      preLoaderRoute: typeof ErrosDisciplinaNomeRouteImport
+      parentRoute: typeof ErrosRoute
+    }
     '/flashcards/flashcard/$id/editar': {
       id: '/flashcards/flashcard/$id/editar'
       path: '/flashcard/$id/editar'
@@ -272,6 +291,16 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface ErrosRouteChildren {
+  ErrosDisciplinaNomeRoute: typeof ErrosDisciplinaNomeRoute
+}
+
+const ErrosRouteChildren: ErrosRouteChildren = {
+  ErrosDisciplinaNomeRoute: ErrosDisciplinaNomeRoute,
+}
+
+const ErrosRouteWithChildren = ErrosRoute._addFileChildren(ErrosRouteChildren)
 
 interface FlashcardsBaralhoIdRouteChildren {
   FlashcardsBaralhoIdNovoFlashcardRoute: typeof FlashcardsBaralhoIdNovoFlashcardRoute
@@ -306,7 +335,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConfiguracoesRoute: ConfiguracoesRoute,
   ConteudoRoute: ConteudoRoute,
   DesempenhoRoute: DesempenhoRoute,
-  ErrosRoute: ErrosRoute,
+  ErrosRoute: ErrosRouteWithChildren,
   FlashcardsRoute: FlashcardsRouteWithChildren,
   LoginRoute: LoginRoute,
 }
