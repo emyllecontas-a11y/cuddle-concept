@@ -70,9 +70,14 @@ function FlashcardsPage() {
 
   return (
     <AppShell breadcrumb="Flashcards" title="Decks">
-      <p className="-mt-4 mb-6 max-w-xl text-sm text-foreground/55">
-        Algoritmo de repetição espaçada FSRS. Cards são apresentados no momento ideal para fixar o conteúdo.
-      </p>
+      <div className="-mt-4 mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <p className="max-w-xl text-sm text-foreground/55">
+          Algoritmo de repetição espaçada FSRS. Cards são apresentados no momento ideal para fixar o conteúdo.
+        </p>
+        <Link to="/flashcards/novo-baralho" className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90">
+          <Plus className="h-3.5 w-3.5" /> Novo baralho
+        </Link>
+      </div>
 
       <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Mini icon={<Layers className="h-4 w-4" />} l="Decks" v={DECKS.length} />
