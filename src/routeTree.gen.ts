@@ -18,6 +18,7 @@ import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FlashcardsNovoBaralhoRouteImport } from './routes/flashcards.novo-baralho'
+import { Route as FlashcardsBaralhoIdRouteImport } from './routes/flashcards.baralho.$id'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -64,6 +65,11 @@ const FlashcardsNovoBaralhoRoute = FlashcardsNovoBaralhoRouteImport.update({
   path: '/novo-baralho',
   getParentRoute: () => FlashcardsRoute,
 } as any)
+const FlashcardsBaralhoIdRoute = FlashcardsBaralhoIdRouteImport.update({
+  id: '/baralho/$id',
+  path: '/baralho/$id',
+  getParentRoute: () => FlashcardsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/flashcards': typeof FlashcardsRouteWithChildren
   '/login': typeof LoginRoute
   '/flashcards/novo-baralho': typeof FlashcardsNovoBaralhoRoute
+  '/flashcards/baralho/$id': typeof FlashcardsBaralhoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/flashcards'
     | '/login'
     | '/flashcards/novo-baralho'
+    | '/flashcards/baralho/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/flashcards'
     | '/login'
     | '/flashcards/novo-baralho'
+    | '/flashcards/baralho/$id'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/flashcards'
     | '/login'
     | '/flashcards/novo-baralho'
+    | '/flashcards/baralho/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -211,15 +223,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlashcardsNovoBaralhoRouteImport
       parentRoute: typeof FlashcardsRoute
     }
+    '/flashcards/baralho/$id': {
+      id: '/flashcards/baralho/$id'
+      path: '/baralho/$id'
+      fullPath: '/flashcards/baralho/$id'
+      preLoaderRoute: typeof FlashcardsBaralhoIdRouteImport
+      parentRoute: typeof FlashcardsRoute
+    }
   }
 }
 
 interface FlashcardsRouteChildren {
   FlashcardsNovoBaralhoRoute: typeof FlashcardsNovoBaralhoRoute
+  FlashcardsBaralhoIdRoute: typeof FlashcardsBaralhoIdRoute
 }
 
 const FlashcardsRouteChildren: FlashcardsRouteChildren = {
   FlashcardsNovoBaralhoRoute: FlashcardsNovoBaralhoRoute,
+  FlashcardsBaralhoIdRoute: FlashcardsBaralhoIdRoute,
 }
 
 const FlashcardsRouteWithChildren = FlashcardsRoute._addFileChildren(
