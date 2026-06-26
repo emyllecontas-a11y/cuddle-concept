@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
 import { ChevronLeft, Plus, ChevronRight, FileText, Layers } from "lucide-react";
 
-export const Route = createFileRoute("/conteudo/disciplina/$nome")({
+export const Route = createFileRoute("/conteudo/disciplina/$nome/")({
   head: () => ({ meta: [{ title: "Disciplina — RevisaFlash" }] }),
   component: DisciplinaPage,
 });

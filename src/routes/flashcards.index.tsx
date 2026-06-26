@@ -4,7 +4,7 @@ import { AppShell } from "@/components/app-shell";
 import { DECKS, FLASHCARD_DEMO } from "@/lib/mock";
 import { Plus, RotateCw, ChevronLeft, Layers, Sparkles } from "lucide-react";
 
-export const Route = createFileRoute("/flashcards")({
+export const Route = createFileRoute("/flashcards/")({
   head: () => ({ meta: [{ title: "Flashcards — RevisaFlash" }] }),
   component: FlashcardsPage,
 });

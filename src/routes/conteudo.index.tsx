@@ -4,7 +4,7 @@ import { DISCIPLINAS } from "@/lib/mock";
 import { Plus, Search, ChevronRight, FileText, Upload } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createFileRoute("/conteudo")({
+export const Route = createFileRoute("/conteudo/")({
   head: () => ({ meta: [{ title: "Conteúdo — RevisaFlash" }] }),
   component: ConteudoPage,
 });

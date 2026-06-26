@@ -4,7 +4,7 @@ import { AppShell } from "@/components/app-shell";
 import { GRANDES_AREAS } from "@/lib/mock";
 import { Plus, X, AlertTriangle, Filter } from "lucide-react";
 
-export const Route = createFileRoute("/erros")({
+export const Route = createFileRoute("/erros/")({
   head: () => ({ meta: [{ title: "Banco de erros — RevisaFlash" }] }),
   component: ErrosPage,
 });

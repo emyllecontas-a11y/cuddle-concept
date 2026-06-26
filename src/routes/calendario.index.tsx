@@ -3,7 +3,7 @@ import { AppShell } from "@/components/app-shell";
 import { ESTUDO_MES, REVISOES_HOJE } from "@/lib/mock";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 
-export const Route = createFileRoute("/calendario")({
+export const Route = createFileRoute("/calendario/")({
   head: () => ({ meta: [{ title: "Calendário — RevisaFlash" }] }),
   component: CalendarioPage,
 });

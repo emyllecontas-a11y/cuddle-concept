@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
 import { ChevronLeft, Plus, Pencil, Search, Layers, Filter } from "lucide-react";
 
-export const Route = createFileRoute("/flashcards/baralho/$id")({
+export const Route = createFileRoute("/flashcards/baralho/$id/")({
   head: () => ({ meta: [{ title: "Baralho — RevisaFlash" }] }),
   component: BaralhoPage,
 });
