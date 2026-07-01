@@ -16,6 +16,7 @@ import { Route as DesempenhoRouteImport } from './routes/desempenho'
 import { Route as ConteudoRouteImport } from './routes/conteudo'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as CalendarioRouteImport } from './routes/calendario'
+import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FlashcardsIndexRouteImport } from './routes/flashcards.index'
 import { Route as ErrosIndexRouteImport } from './routes/erros.index'
@@ -66,6 +67,11 @@ const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
 const CalendarioRoute = CalendarioRouteImport.update({
   id: '/calendario',
   path: '/calendario',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadastroRoute = CadastroRouteImport.update({
+  id: '/cadastro',
+  path: '/cadastro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -157,6 +163,7 @@ const ConteudoDisciplinaNomeTopicoTopicoIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
   '/calendario': typeof CalendarioRouteWithChildren
   '/configuracoes': typeof ConfiguracoesRoute
   '/conteudo': typeof ConteudoRouteWithChildren
@@ -182,6 +189,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/desempenho': typeof DesempenhoRoute
   '/login': typeof LoginRoute
@@ -204,6 +212,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cadastro': typeof CadastroRoute
   '/calendario': typeof CalendarioRouteWithChildren
   '/configuracoes': typeof ConfiguracoesRoute
   '/conteudo': typeof ConteudoRouteWithChildren
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cadastro'
     | '/calendario'
     | '/configuracoes'
     | '/conteudo'
@@ -256,6 +266,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cadastro'
     | '/configuracoes'
     | '/desempenho'
     | '/login'
@@ -277,6 +288,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/cadastro'
     | '/calendario'
     | '/configuracoes'
     | '/conteudo'
@@ -303,6 +315,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CadastroRoute: typeof CadastroRoute
   CalendarioRoute: typeof CalendarioRouteWithChildren
   ConfiguracoesRoute: typeof ConfiguracoesRoute
   ConteudoRoute: typeof ConteudoRouteWithChildren
@@ -361,6 +374,13 @@ declare module '@tanstack/react-router' {
       path: '/calendario'
       fullPath: '/calendario'
       preLoaderRoute: typeof CalendarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadastro': {
+      id: '/cadastro'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -549,6 +569,7 @@ const FlashcardsRouteWithChildren = FlashcardsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CadastroRoute: CadastroRoute,
   CalendarioRoute: CalendarioRouteWithChildren,
   ConfiguracoesRoute: ConfiguracoesRoute,
   ConteudoRoute: ConteudoRouteWithChildren,
